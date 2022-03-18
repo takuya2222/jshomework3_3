@@ -5,9 +5,13 @@ const addTaskTarget = document.getElementById('addTask-target');
 const todos = [];
 
 const onClickAdd = () => {
-  const todo = {todoComment: inputTodo.value, onProcessBtn: '作業中' };
+  const todo = {
+    todoComment: inputTodo.value,
+    status: '作業中',
+  };
+
   todos.push(todo);
-  
+
   createTodo(inputTodo);
   inputTodo.value = '';
 };
@@ -21,23 +25,20 @@ const createTodo = (text) => {
     
     const todoId = document.createElement('td');
     const todoComment = document.createElement('td');
-    const status = document.createElement('td');
+    const todoStatus = document.createElement('td');
     const todoAction= document.createElement('td');
     
     todoId.textContent = number;
     todoComment.textContent = todo.todoComment;
     todoRow.appendChild(todoId);
     todoRow.appendChild(todoComment);
-    todoRow.appendChild(status);
+    todoRow.appendChild(todoStatus);
     todoRow.appendChild(todoAction);
-
-    const statusButton = document.createElement('button');
-    statusButton.innerText = todo.onProcessBtn;
-    status.appendChild(statusButton);
     
+    todoStatus.appendChild(createStatusButton(todo));
     todoAction.appendChild(createDeleteButton(todoRow));
     
-    console.log(todoRow);
+    console.log(todoStatus);
     
     
   });
@@ -46,6 +47,22 @@ const createTodo = (text) => {
 document
 .getElementById('add-btn')
 .addEventListener('click', () => onClickAdd());
+
+const createStatusButton = (todo) => {
+  const statusButton = document.createElement('button');
+  statusButton.innerText = todo.status;
+  statusButton.addEventListener('click', () => {
+    if (todo.status === '作業中') {
+      todo.status = '完了';
+    } else {
+      todo.status = '作業中';
+    };
+    createTodo(todo);
+  });
+  return statusButton;
+
+  console.log(statusButton);
+};
 
 
 const createDeleteButton = (todoRow) => {
