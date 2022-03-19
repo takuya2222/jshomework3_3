@@ -8,13 +8,13 @@ const onClickAdd = () => {
   const todo = {
     todoComment: inputTodo.value,
     status: '作業中',
-  };
+   };
 
   todos.push(todo);
 
   createTodo(inputTodo);
   inputTodo.value = '';
-};
+ };
 
 const createTodo = (text) => {
   addTaskTarget.textContent = '';
@@ -40,7 +40,6 @@ const createTodo = (text) => {
     
     console.log(todoStatus);
     
-    
   });
 };
 
@@ -52,11 +51,7 @@ const createStatusButton = (todo) => {
   const statusButton = document.createElement('button');
   statusButton.innerText = todo.status;
   statusButton.addEventListener('click', () => {
-    if (todo.status === '作業中') {
-      todo.status = '完了';
-    } else {
-      todo.status = '作業中';
-    };
+    todo.status ==='作業中'?todo.status = '完了':todo.status = '作業中';
     createTodo(todo);
   });
   return statusButton;
